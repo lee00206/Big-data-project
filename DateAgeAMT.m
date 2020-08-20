@@ -1,3 +1,5 @@
+%% Total Transaction Amount of Each Age Group by Months
+
 clear;
 close all;
 
@@ -5,13 +7,13 @@ close all;
 data = readtable('경기.csv');
 
 
-%% Age change
+%% Change Cell Type to Numeric Type of AGE Variable
 
 data.AGE = erase(data.AGE, "s");
 
 data.AGE = cellfun(@str2num, data.AGE);
 
-%% split by date
+%% Data Split by Date
 
 Jan_19 = data(data.REG_YYMM == 201901, :);
 Feb_19 = data(data.REG_YYMM == 201902, :);
@@ -29,7 +31,12 @@ Jan_20 = data(data.REG_YYMM == 202001, :);
 Feb_20 = data(data.REG_YYMM == 202002, :);
 Mar_20 = data(data.REG_YYMM == 202003, :);
 
-%% 업종별 이용금액
+%% Create a Table
+
+Age = {'10대';'20대';'30대';'40대';'50대';'60대';'70대'};
+Final = cell2table(Age);
+
+%% Total Transaction Amount of Each Group in Each Month
 
 %201901
 
@@ -39,8 +46,6 @@ Jan_19.ageAMT = Jan_19AMTsum(Jan_19age);
 Jan_19ageAMTtable = table((Jan_19.AGE), Jan_19.ageAMT);
 Jan_19ageAMT = unique(Jan_19ageAMTtable);
 
-Age = {'10대';'20대';'30대';'40대';'50대';'60대';'70대'};
-Final = cell2table(Age);
 Final.JanAMT = Jan_19ageAMT{:, 2};
 
 %201902
@@ -201,7 +206,7 @@ Final.Mar20AMT = Mar_20ageAMT{:,2};
 
 writetable(Final,'월별연령별매출.csv','Delimiter',',','QuoteStrings',true);
 
-%% 시각화
+%% Plot
 
 date = grp2idx(data.REG_YYMM);
 dateCNTsum = grpstats(data.CNT, date, @sum);
