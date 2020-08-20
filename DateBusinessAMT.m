@@ -1,3 +1,5 @@
+%% Total Transaction Amount of Each Business Type by Month
+
 clear;
 close all;
 
@@ -22,7 +24,7 @@ Jan_20 = data(data.REG_YYMM == 202001, :);
 Feb_20 = data(data.REG_YYMM == 202002, :);
 Mar_20 = data(data.REG_YYMM == 202003, :);
 
-%% 업종별 이용금액
+%% Transaction Amount of Each Business Type
 
 %201901
 Jan_19business = categorical(Jan_19.STD_CLSS_NM);
