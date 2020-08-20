@@ -4,7 +4,7 @@ close all;
 %load data
 data = readtable('2019.csv');
 
-%% 지역, 이용건수
+%% Categorize by City and Sum Number of Cases by city group
 city = categorical(data.CARD_SIDO_NM);
 CNTsum = grpstats(data.CNT, city, @sum);
 cityindices = grp2idx(data.CARD_SIDO_NM);
@@ -16,11 +16,11 @@ figure(1)
 bar(categorical(cityCNT{:,1}), cityCNT{:,2});
 title('지역별 이용건수');
 
-%% 업종 수
+%% Count Number of Business Types
 BusinessTypeCategory = categorical(data.STD_CLSS_NM);
 BusinessType = unique(BusinessTypeCategory);
 
-%% 월별 이용건수
+%% Total Number of Cases by Month
 
 date = grp2idx(data.REG_YYMM);
 dateCNTsum = grpstats(data.CNT, date, @sum);
@@ -32,7 +32,7 @@ figure(19)
 plot(categorical(dateCNT{:,1}), dateCNT{:,2}, 'LineWidth', 2, 'Marker', 's', 'MarkerSize', 5);
 title('월별 이용건수');
 
-%% 월별 이용금액
+%% Transaction Amount by Month
 
 date = grp2idx(data.REG_YYMM);
 dateAMTsum = grpstats(data.AMT, date, @sum);
@@ -44,7 +44,7 @@ figure(20)
 plot(categorical(dateAMT{:,1}), dateAMT{:,2}, 'LineWidth', 2, 'Marker', 's', 'MarkerSize', 5);
 title('월별 이용금액');
 
-%% 월별 이용금액, 이용건수
+%% Transaction Amount and Number of Cases by Month
 
 figure(21)
 hold on;
@@ -55,7 +55,7 @@ plot(categorical(dateAMT{:,1}), dateAMT{:,2}, 'LineWidth', 2, 'Marker', 's', 'Ma
 ylabel('이용금액');
 title('월별 이용금액과 이용건수');
 
-%% 월별 타지역, 지역
+%% Customers from Other City or from the Same City
 
 AreaIDX = cellfun(@isequal, data.CARD_SIDO_NM, data.HOM_SIDO_NM);
 
@@ -75,14 +75,11 @@ FromSameAreaDateCNTtable = table(FromSameArea.REG_YYMM, FromSameArea.dateCNT);
 FromSameAreaDateCNT = unique(FromSameAreaDateCNTtable);
 
 AreaY = [FromOtherAreaDateCNT{:,2},FromSameAreaDateCNT{:,2}];
-%% 
 
 figure(22)
 bar(categorical(FromOtherAreaDateCNT{:, 1}), AreaY);
 title('같은 지역 구매 고객과 타지역 구매 고객 이용건수 월별 그래프');
 legend('타지역', '같은 지역');
-
-%% 
 
 figure(24)
 hold on;
@@ -93,7 +90,7 @@ plot(categorical(FromSameAreaDateCNT{:, 1}), FromSameAreaDateCNT{:, 2},'LineWidt
 ylabel('같은 지역 이용건수');
 title('같은 지역 구매 고객과 타지역 구매 고객 이용건수 월별 그래프');
 
-%% 같은 지역 - 타지역
+%% Customer from the Same City - from Other City
 
 DifferenceAreaCNT = FromSameAreaDateCNT{:,2} - FromOtherAreaDateCNT{:,2};
 
@@ -101,10 +98,8 @@ figure(23)
 plot(categorical(FromOtherAreaDateCNT{:, 1}), DifferenceAreaCNT, 'LineWidth', 2, 'Marker', 's', 'MarkerSize', 5);
 title('같은 지역 구매 고객과 타지역 구매 고객 이용건수 차이 추이');
 
-%% 같은 지역 차이
 
-
-%% 지역별 테이블 split
+%% Split Data by City
 
 Gangwon = data(data.CARD_SIDO_NM == "강원", :);
 %writetable(Gangwon,'강원.csv','Delimiter',',','QuoteStrings',true)
@@ -157,21 +152,15 @@ Chungnam = data(data.CARD_SIDO_NM == "충남", :);
 Chungbuk = data(data.CARD_SIDO_NM == "충북", :);
 %writetable(Chungbuk,'충북.csv','Delimiter',',','QuoteStrings',true)
 
-%% 지역별 업종
+%% Business Types by City
 
 %%강원
-%업종별
 GangwonBusiness = categorical(Gangwon.STD_CLSS_NM);
 GangwonBusinessCNTsum = grpstats(Gangwon.CNT, GangwonBusiness, @sum);
 GangwonBusinessIndices = grp2idx(Gangwon.STD_CLSS_NM);
 Gangwon.BusinessCNT = GangwonBusinessCNTsum(GangwonBusinessIndices);
 GangwonBusinessCNTtable = table((Gangwon.STD_CLSS_NM), Gangwon.BusinessCNT);
 GangwonBusinessCNT = unique(GangwonBusinessCNTtable);
-
-%월별
-GangwonDate = grp2idx(Gangwon.REG_YYMM);
-GangwonDateCNTsum = grpstats(Gangwon.CNT, GangwonDate, @sum);
-% Gangwon.DateCNT
 
 %경기
 GyeonggiBusiness = categorical(Gyeonggi.STD_CLSS_NM);
@@ -301,7 +290,7 @@ Chungbuk.BusinessCNT = ChungbukBusinessCNTsum(ChungbukBusinessIndices);
 ChungbukBusinessCNTtable = table((Chungbuk.STD_CLSS_NM), Chungbuk.BusinessCNT);
 ChungbukBusinessCNT = unique(ChungbukBusinessCNTtable);
 
-%% 지역별 업종별 그래프
+%% Plot Bar Graphs by Business Types 
 
 figure(2)
 bar(categorical(GangwonBusinessCNT{:,1}), GangwonBusinessCNT{:,2});
