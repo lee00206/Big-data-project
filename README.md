@@ -19,8 +19,8 @@ Then it shows how the floating population has changed after COVID-19 in each reg
 + Regional / Industrial amount of credit card transactions<br>
 + Comparison between gross sales index and credit card sales<br>
 + The monthly amount of credit card transactions by age group<br>
-<Visualization> produces 24 graphs in total.<br>
-The followings are the examples of "Visualization":<br>
 
+"Visualization" produces 24 graphs in total.<br>
+The followings are the examples of "Visualization":<br>
 
 
