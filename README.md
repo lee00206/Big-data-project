@@ -22,7 +22,7 @@ Then it shows how the floating population has changed after COVID-19 in each reg
 
 "Visualization" produces 24 graphs in total.<br>
 The followings are the examples of "Visualization":<br>
-<img scr = "https://user-images.githubusercontent.com/43057046/106250312-cfec2000-6256-11eb-91c5-bd60e0b38bde.jpg", width = "300">
-<img scr = "https://user-images.githubusercontent.com/43057046/106250326-d24e7a00-6256-11eb-90cc-c4c440e79e74.jpg", width = "300">
-<img scr = "https://user-images.githubusercontent.com/43057046/106250329-d2e71080-6256-11eb-9aa3-913f018901d2.jpg", width = "300">
-<img scr = "https://user-images.githubusercontent.com/43057046/106250331-d37fa700-6256-11eb-99b1-0fdefe350a33.jpg", width = "300">
+<img src = "https://user-images.githubusercontent.com/43057046/106250649-48eb7780-6257-11eb-97c0-4beb5cae87b7.jpg" width = "50%" height="50%"></img>
+<img src = "https://user-images.githubusercontent.com/43057046/106250657-4b4dd180-6257-11eb-8bb7-de38608428b5.jpg" width = "50%" height="50%"></img>
+<img src = "https://user-images.githubusercontent.com/43057046/106250661-4be66800-6257-11eb-81b1-664f713f38b5.jpg" width = "50%" height="50%"></img>
+<img src = "https://user-images.githubusercontent.com/43057046/106250664-4c7efe80-6257-11eb-82b7-4a565a1751a1.jpg" width = "50%" height="50%"></img>
